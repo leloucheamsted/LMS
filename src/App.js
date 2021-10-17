@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import { Route, Switch } from 'react-router';
+import { BrowserRouter, HashRouter, Router } from 'react-router-dom';
 import './App.css';
-
+import { ProvideAuth, PrivateRoute } from './components/auth';
+import Home from './components/Home';
+import Login from './components/login';
+import Signup from './components/signup';
+import AjoutAdherent from './components/HomeComponents/AdherentsComponents/AjoutAdherents';
+import ListeAdherents from './components/HomeComponents/AdherentsComponents/ListeAdherents';
+import Adherents from './components/HomeComponents/AdherentsComponents/Adherents';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ProvideAuth>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/adherents/ajoutadherent" component={AjoutAdherent} />
+          <Route exact path="/adherents/listeadherents" component={ListeAdherents} />
+          <PrivateRoute path="/">
+            <Home />
+          </PrivateRoute>
+        </Switch>
+
+      </BrowserRouter>
+    </ProvideAuth>
+
+
+
   );
 }
 
